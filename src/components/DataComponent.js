@@ -1,12 +1,12 @@
-// React Component (DataComponent.jsx)
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+// src/components/DataComponent.jsx
+import React, { useEffect, useState } from 'react';
+import { dataApi } from '../api/data';
 
 const DataComponent = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
-        axios.get('http://localhost:8080/data')  // /api 제거
+        dataApi.getData()
             .then(response => {
                 console.log("API 응답 데이터:", response.data);
                 setData(response.data);  // .data 중첩 제거
@@ -20,7 +20,7 @@ const DataComponent = () => {
         <div>
             <h1>API로 받은 데이터</h1>
             <ul>
-                {Array.isArray(data) && data.map((item, index) => (  // Array 체크 추가
+                {Array.isArray(data) && data.map((item, index) => (
                     <li key={index}>{item}</li>
                 ))}
             </ul>

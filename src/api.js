@@ -1,14 +1,18 @@
-import axios from 'axios';
+// src/api/config.js
+const API_BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8080';
 
-const api = axios.create({
-    baseURL: process.env.REACT_APP_BACKEND_URL || "http://localhost:8080", // 로컬 환경
+export const apiClient = axios.create({
+    baseURL: API_BASE_URL,
+    timeout: 5000,
+    headers: {
+        'Content-Type': 'application/json'
+    }
 });
 
-export const fetchData = async () => {
-    try {
-        const response = await api.get("/api/data");
-        return response.data;
-    } catch (error) {
-        console.error("API 호출 오류", error);
-    }
+// src/api/data.js
+import { apiClient } from './config';
+
+export const dataApi = {
+    getData: () => apiClient.get('/data'),
+    // 추가 API 메서드들...
 };
