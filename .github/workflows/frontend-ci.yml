@@ -17,20 +17,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
+      # Build Docker image for frontend
+      - name: Build Docker image
+        run: |
+          docker build -t dainkim3/cloud_project:frontend -f frontend/Dockerfile ./frontend
 
-      # Install dependencies
-      - name: Install dependencies
-        run: npm install
+      # Log in to Docker Hub
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # Build React application
-      - name: Build frontend
-        run: npm run build
-
-      # Optionally deploy or package your app if needed
-      # You can add steps here to deploy the frontend after build
-      # For example, you can build a Docker image for frontend or deploy to a server
+      # Push Docker image to Docker Hub
+      - name: Push Docker image
+        run: |
+          docker tag dainkim3/cloud_project:frontend dainkim3/cloud_project:frontend-latest
+          docker push dainkim3/cloud_project:frontend
+          docker push dainkim3/cloud_project:frontend-latest
