@@ -94,13 +94,7 @@ export const RestaurantDetail = ({ restaurant, onClose }) => {
                     </div>
                 </div>
 
-                {/* 코멘트 섹션 */}
-                {restaurant.comment && restaurant.comment.trim() !== '' && (
-                    <div className="mb-6 p-4 bg-gray-50 rounded-lg">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2">코멘트</h3>
-                        <p className="text-gray-600 italic">"{restaurant.comment}"</p>
-                    </div>
-                )}
+
 
                 {/* 상세 정보 */}
                 <div className="space-y-6">

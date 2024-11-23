@@ -125,18 +125,6 @@ export const RestaurantForm = () => {
 
                         </div>
 
-
-                        <div className="mb-6">
-                            <label className="block text-gray-700 text-sm font-bold mb-2">
-                                코멘트
-                            </label>
-                            <textarea
-                                value={formData.comment}
-                                onChange={(e) => setFormData({...formData, comment: e.target.value})}
-                                className="border rounded w-full py-2 px-3 h-24 resize-none"
-                                placeholder="맛집에 대한 간단한 코멘트를 남겨주세요"
-                            />
-                        </div>
                     </div>
 
                     <div className="flex justify-end space-x-4 pt-6">
