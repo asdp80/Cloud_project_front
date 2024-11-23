@@ -1,6 +1,6 @@
-// components/SortDropdown.js
 import React from 'react';
 
+//정렬 기준 바뀌었을 때 호출되는 함수
 export const SortDropdown = ({ value, onChange }) => {
     return (
         <select

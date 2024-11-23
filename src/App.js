@@ -8,7 +8,9 @@ function App() {
         <BrowserRouter>
             <div className="min-h-screen bg-gray-50">
                 <Routes>
+                    {/* 루트 경로에 RestaurantList 컴포넌트 렌더링 */}
                     <Route path="/" element={<RestaurantList />} />
+                    {/* "/restaurant/new" 경로에 RestaurantForm 컴포넌트 렌더링 */}
                     <Route path="/restaurant/new" element={<RestaurantForm onSubmitSuccess={() => window.location.reload()}/>} />
                 </Routes>
             </div>
@@ -17,4 +19,3 @@ function App() {
 }
 
 export default App;
-

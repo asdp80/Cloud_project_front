@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const API_BASE_URL = 'http://localhost:8080/api';
 
+//식당 검색
 export const restaurantApi = {
     searchRestaurants: async ({ location, type, page = 0, size = 10, sortBy = "id", sortDir = 'DESC' }) => {
         const response = await axios.get(`${API_BASE_URL}/restaurants/search`, {
@@ -10,12 +11,12 @@ export const restaurantApi = {
         });
         return response.data;
     },
-
+//식당 추가
     addRestaurant: async (restaurantData) => {
         const response = await axios.post(`${API_BASE_URL}/restaurants`, restaurantData);
         return response.data;
     },
-
+//식당 삭제
     deleteRestaurant: async (id) => {
         try {
             const response = await axios.delete(`${API_BASE_URL}/restaurants/${id}`);
@@ -26,8 +27,4 @@ export const restaurantApi = {
         }
     },
 
-    getTopRestaurants: async (location) => {
-        const response = await axios.get(`${API_BASE_URL}/restaurants/top/${location}`);
-        return response.data;
-    }
 };

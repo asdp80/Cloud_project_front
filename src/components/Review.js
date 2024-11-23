@@ -10,6 +10,7 @@ export const Review = ({ restaurantId }) => {
         content: ''
     });
 
+    // 리뷰 목록 조회
     const fetchReviews = async () => {
         try {
             const response = await axios.get(`/api/restaurants/${restaurantId}/reviews`);
@@ -19,6 +20,7 @@ export const Review = ({ restaurantId }) => {
         }
     };
 
+    // 리뷰 작성 처리
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -39,6 +41,7 @@ export const Review = ({ restaurantId }) => {
 
     return (
         <div className="mt-8">
+            {/* 리뷰 제목과 작성 버튼 */}
             <div className="flex justify-between items-center mb-4">
                 <h3 className="text-lg font-semibold text-gray-800">리뷰</h3>
                 <button
@@ -67,7 +70,7 @@ export const Review = ({ restaurantId }) => {
                 ))}
             </div>
 
-            {/* 리뷰 작성 폼 모달 */}
+            {/* 리뷰 작성 폼 */}
             {showReviewForm && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white rounded-lg p-6 w-full max-w-md">

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {restaurantApi} from '../api/restaurant';
 
+//식당 정보 입력받음
 export const RestaurantForm = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -13,6 +14,7 @@ export const RestaurantForm = () => {
         comment: ''
 
     });
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -39,6 +41,7 @@ export const RestaurantForm = () => {
     };
 
     return (
+
         <div className="min-h-screen bg-gray-50 py-12">
             <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
                 <div className="mb-8">

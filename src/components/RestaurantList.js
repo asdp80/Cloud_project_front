@@ -15,6 +15,7 @@ export const RestaurantList = () => {
     const [sortBy, setSortBy] = useState('id');
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);  // 선택된 레스토랑 상태 추가
 
+    // useCallback을 사용하여 레스토랑 데이터를 가져오는 함수 정의
     const fetchRestaurants = useCallback(async () => {
         try {
             setLoading(true);
@@ -41,6 +42,7 @@ export const RestaurantList = () => {
         fetchRestaurants();
     }, [fetchRestaurants]);
 
+    // 가게 삭제 핸들러
     const handleDelete = async (id) => {
         try {
             const response = await restaurantApi.deleteRestaurant(id);
@@ -53,14 +55,14 @@ export const RestaurantList = () => {
         }
     };
 
-    // 카드 클릭 핸들러 추가
-    const handleCardClick = (restaurant) => {
-        console.log('선택된 레스토랑 데이터:', restaurant); // 데이터 확인
+    // 리뷰 클릭 핸들러
+     const handleCardClick = (restaurant) => {
         setSelectedRestaurant(restaurant);
     };
 
     return (
         <div className="container mx-auto px-4 py-8">
+            {/* 제목과 리뷰 추가 버튼 */}
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-3xl font-bold">김다인의 맛집 탐방</h1>
                 <button
@@ -71,6 +73,7 @@ export const RestaurantList = () => {
                 </button>
             </div>
 
+            {/* 필터링 옵션 */}
             <div className="flex gap-4 mb-6">
                 <select
                     value={location}
@@ -91,6 +94,7 @@ export const RestaurantList = () => {
                 </select>
             </div>
 
+            {/* 식당/카페 선택 버튼 */}
             <div className="mb-6">
                 <div className="grid grid-cols-2 gap-2 border rounded-lg overflow-hidden">
                     <button
@@ -137,7 +141,7 @@ export const RestaurantList = () => {
                 </div>
             )}
 
-            {/* 상세 정보 모달 */}
+            {/* 상세 정보 */}
             {selectedRestaurant && (
                 <RestaurantDetail
                     restaurant={selectedRestaurant}

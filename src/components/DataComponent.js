@@ -1,7 +1,7 @@
-// src/components/DataComponent.js
 import React, { useEffect, useState } from 'react';
 import { dataApi } from '../api/data';
 
+//데이터 리스트로 표시
 const DataComponent = () => {
     const [data, setData] = useState([]);
 
@@ -9,7 +9,7 @@ const DataComponent = () => {
         dataApi.getData()
             .then(response => {
                 console.log("API 응답 데이터:", response.data);
-                setData(response.data);  // .data 중첩 제거
+                setData(response.data);
             })
             .catch(error => {
                 console.error('API 호출 에러:', error);
