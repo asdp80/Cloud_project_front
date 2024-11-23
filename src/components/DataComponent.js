@@ -1,4 +1,4 @@
-// src/components/DataComponent.jsx
+// src/components/DataComponent.js
 import React, { useEffect, useState } from 'react';
 import { dataApi } from '../api/data';
 
