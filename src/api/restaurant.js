@@ -4,7 +4,7 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost:8080/api';
 
 export const restaurantApi = {
-    searchRestaurants: async ({ location, type, page = 0, size = 10, sortBy = "id" }) => {
+    searchRestaurants: async ({ location, type, page = 0, size = 10, sortBy = "id", sortDir = 'DESC' }) => {
         const response = await axios.get(`${API_BASE_URL}/restaurants/search`, {
             params: { location, type, page, size, sortBy }
         });

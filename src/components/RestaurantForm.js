@@ -1,7 +1,6 @@
-// src/components/RestaurantForm.js
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
-import { restaurantApi } from '../api/restaurant';
+import {restaurantApi} from '../api/restaurant';
 
 export const RestaurantForm = () => {
     const navigate = useNavigate();
@@ -10,10 +9,11 @@ export const RestaurantForm = () => {
         location: 'Seoul',
         locationDetail: '',
         type: '',
-        rating: ''
+        rating: '',
+        comment: ''
+
     });
 
-    // RestaurantForm.js의 handleSubmit 수정
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -22,7 +22,8 @@ export const RestaurantForm = () => {
                 location: formData.location,
                 type: formData.type,
                 locationDetail: formData.locationDetail,
-                rating: parseFloat(formData.rating) || 0
+                rating: parseFloat(formData.rating) || 0,
+                comment : formData.comment
             });
 
             if (response.success) {
@@ -38,97 +39,125 @@ export const RestaurantForm = () => {
     };
 
     return (
-        <div className="container mx-auto px-4 py-8 max-w-2xl">
-            <h1 className="text-3xl font-bold mb-8">Add New Restaurant</h1>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Restaurant Name
-                    </label>
-                    <input
-                        type="text"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({...formData, name: e.target.value})}
-                        className="w-full p-2 border rounded-md"
-                    />
+        <div className="min-h-screen bg-gray-50 py-12">
+            <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                <div className="mb-8">
+                    <h1 className="text-3xl font-bold text-gray-900">리뷰 작성</h1>
+                    <p className="mt-2 text-gray-600">새로운 맛집/카페를 등록해주세요</p>
                 </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Location
-                    </label>
-                    <select
-                        value={formData.location}
-                        onChange={(e) => setFormData({...formData, location: e.target.value})}
-                        className="w-full p-2 border rounded-md"
-                    >
-                        <option value="서울">서울</option>
-                        <option value="경기">경기</option>
-                    </select>
-                </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            가게 이름
+                            <span className="text-red-500 ml-1">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            required
+                            value={formData.name}
+                            onChange={(e) => setFormData({...formData, name: e.target.value})}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            placeholder="가게 이름을 입력하세요"
+                        />
+                    </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        상세 주소
-                    </label>
-                    <input
-                        type="text"
-                        value={formData.locationDetail}
-                        onChange={(e) => setFormData({...formData, locationDetail: e.target.value})}
-                        className="w-full p-2 border rounded-md"
-                        placeholder="예: 강남구 역삼동"
-                    />
-                </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            장소
+                        </label>
+                        <select
+                            value={formData.location}
+                            onChange={(e) => setFormData({...formData, location: e.target.value})}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white"
+                        >
+                            <option value="Seoul">서울</option>
+                            <option value="Gyeonggi">경기</option>
+                        </select>
+                    </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Type
-                    </label>
-                    <select
-                        required
-                        value={formData.type}
-                        onChange={(e) => setFormData({...formData, type: e.target.value})}
-                        className="w-full p-2 border rounded-md"
-                    >
-                        <option value="">Select Type</option>
-                        <option value="Restaurant">Restaurant</option>
-                        <option value="Cafe">Cafe</option>
-                    </select>
-                </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            상세 주소
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.locationDetail}
+                            onChange={(e) => setFormData({...formData, locationDetail: e.target.value})}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            placeholder="예: 경기도 구리시"
+                        />
+                    </div>
 
-                <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Rating
-                    </label>
-                    <input
-                        type="number"
-                        min="0"
-                        max="5"
-                        step="0.1"
-                        value={formData.rating}
-                        onChange={(e) => setFormData({...formData, rating: e.target.value})}
-                        className="w-full p-2 border rounded-md"
-                    />
-                </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            식당 / 카페
+                            <span className="text-red-500 ml-1">*</span>
+                        </label>
+                        <select
+                            required
+                            value={formData.type}
+                            onChange={(e) => setFormData({...formData, type: e.target.value})}
+                            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200 bg-white"
+                        >
+                            <option value="">음식점 종류를 선택하세요</option>
+                            <option value="Restaurant">식당</option>
+                            <option value="Cafe">카페</option>
+                        </select>
+                    </div>
 
-                <div className="flex gap-4">
-                    <button
-                        type="submit"
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg"
-                    >
-                        Add Restaurant
-                    </button>
-                    <button
-                        type="button"
-                        onClick={() => navigate('/')}
-                        className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg"
-                    >
-                        Cancel
-                    </button>
-                </div>
-            </form>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            별점
+                        </label>
+                        <div className="flex items-center space-x-2">
+                            <input
+                                type="number"
+                                min="0"
+                                max="5"
+                                step="0.1"
+                                value={formData.rating}
+                                onChange={(e) => setFormData({...formData, rating: e.target.value})}
+                                className="w-24 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200"
+                            />
+
+                            <span className="text-sm text-gray-500">/ 5.0</span>
+
+                        </div>
+
+
+                        <div className="mb-6">
+                            <label className="block text-gray-700 text-sm font-bold mb-2">
+                                코멘트
+                            </label>
+                            <textarea
+                                value={formData.comment}
+                                onChange={(e) => setFormData({...formData, comment: e.target.value})}
+                                className="border rounded w-full py-2 px-3 h-24 resize-none"
+                                placeholder="맛집에 대한 간단한 코멘트를 남겨주세요"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex justify-end space-x-4 pt-6">
+                        <button
+                            type="button"
+                            onClick={() => navigate('/')}
+                            className="px-6 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-lg transition duration-200"
+                        >
+                            취소하기
+                        </button>
+                        <button
+                            type="submit"
+                            className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-medium rounded-lg transition duration-200"
+                        >
+                            리뷰 작성
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };
+
+export default RestaurantForm;

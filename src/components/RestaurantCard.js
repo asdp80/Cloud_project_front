@@ -1,45 +1,94 @@
+// import React from 'react';
+//
+// export const RestaurantCard = ({restaurant, onDelete}) => {
+//     return (
+//         <div className="w-full border rounded-lg p-4 hover:shadow-lg transition-shadow bg-white">
+//             {/* 헤더 섹션 */}
+//             <div className="pb-3 border-b flex justify-between items-center">
+//                 <h3 className="text-lg font-bold">{restaurant.name}</h3>
+//                 <button
+//                     onClick={() => onDelete(restaurant.id)}
+//                     className="text-red-600 hover:text-red-800"
+//                 >
+//                     리뷰 삭제
+//                 </button>
+//             </div>
+//
+//             {/* 내용 섹션 */}
+//             <div className="pt-3 space-y-3">
+//                 {/* 위치와 별점 */}
+//                 <div className="flex items-center justify-between">
+//                     <span className="text-sm text-gray-500">
+//                         {restaurant.location}
+//                         {restaurant.locationDetail && ` - ${restaurant.locationDetail}`}
+//                     </span>
+//                     <div className="flex items-center">
+//                         <span className="text-yellow-400 mr-1">⭐</span>
+//                         <span className="text-sm font-medium">
+//                             {restaurant.rating ? restaurant.rating.toFixed(1) : 'N/A'}
+//                         </span>
+//                     </div>
+//                 </div>
+//
+//                 {/* 타입 태그 */}
+//                 <div>
+//                     <span className="inline-block px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
+//                         {restaurant.type}
+//                     </span>
+//                 </div>
+//
+//                 {/* 코멘트 섹션 */}
+//                     {restaurant.comment && restaurant.comment !== 'null' && (
+//                             <div className="border-t pt-3">
+//                                 <p className="text-gray-700 text-sm">
+//                                     "{restaurant.comment}"
+//                                 </p>
+//                             </div>
+//                 )}
+//             </div>
+//         </div>
+//     );
+// };
+
+// RestaurantCard.js
 import React from 'react';
 
-export const RestaurantCard = ({restaurant, onDelete}) => {
+export const RestaurantCard = ({restaurant, onDelete, onClick}) => {
     return (
-        <div className="w-full border rounded-lg p-4 hover:shadow-lg transition-shadow bg-white">
-            <div className="w-full border rounded-lg p-4 hover:shadow-lg transition-shadow bg-white">
-                <div className="pb-3 border-b flex justify-between items-center">
-                    <h3 className="text-lg font-bold">{restaurant.name}</h3>
-                    <div className={"flex justify-end mt-2"}>
-                        <button
-                            onClick={() => onDelete(restaurant.id)}
-                            className="text-red-600 hover:text-red-800"
-                        >
-                            리뷰 삭제
-                        </button>
-                    </div>
-                </div>
+        <div
+            className="w-full border rounded-lg p-4 hover:shadow-lg transition-shadow bg-white cursor-pointer"
+            onClick={() => onClick(restaurant)}
+        >
+            <div className="pb-3 border-b flex justify-between items-center">
+                <h3 className="text-lg font-bold">{restaurant.name}</h3>
+                <button
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onDelete(restaurant.id);
+                    }}
+                    className="text-red-600 hover:text-red-800"
+                >
+                    리뷰 삭제
+                </button>
             </div>
 
             <div className="pt-3">
-                <div className="space-y-2">
-                    <div className="flex items-center justify-between">
-                         <span className="text-sm text-gray-500">
-        {restaurant.location}
-                             {restaurant.locationDetail && ` - ${restaurant.locationDetail}`}
-    </span>
-                        <div className="flex items-center">
-                            {/* Star emoji as a simple replacement for the Star icon */}
-                            <span className="text-yellow-400 mr-1">⭐</span>
-                            <span className="text-sm font-medium">
-                                {restaurant.rating ? restaurant.rating.toFixed(1) : 'N/A'}
-                            </span>
-                        </div>
-                    </div>
-                    <span className="inline-block px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
-                        {restaurant.type}
+                <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm text-gray-500">
+                        {restaurant.location}
                     </span>
+                    <div className="flex items-center">
+                        <span className="text-yellow-400 mr-1">⭐</span>
+                        <span className="text-sm font-medium">
+                            {restaurant.rating ? restaurant.rating.toFixed(1) : 'N/A'}
+                        </span>
+                    </div>
                 </div>
+
+                <span className="inline-block px-2 py-1 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
+                    {restaurant.type}
+                </span>
             </div>
-
         </div>
-
-
     );
 };
