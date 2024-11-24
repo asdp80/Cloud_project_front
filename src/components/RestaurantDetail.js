@@ -5,6 +5,7 @@ export const RestaurantDetail = ({ restaurant, onClose }) => {
     const [reviews, setReviews] = useState([]);
     const [showReviewForm, setShowReviewForm] = useState(false);
 
+    //리뷰 가져오는 함수
     const fetchReviews = useCallback(async () => {
         if (!restaurant?.id) return;
         try {
@@ -143,7 +144,7 @@ export const RestaurantDetail = ({ restaurant, onClose }) => {
                     </div>
                 </div>
 
-                {/* 리뷰 작성 모달 */}
+                {/* 리뷰 작성 */}
                 {showReviewForm && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                         <div className="bg-white rounded-lg p-6 w-full max-w-md">
